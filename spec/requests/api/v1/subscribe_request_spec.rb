@@ -9,7 +9,7 @@ RSpec.describe "Tea Subscriptions", type: :request do
         "ACCEPT" => "application/json"
       }
 
-      post "/api/v1/subscriptions", headers: headers, params: 
+      post "/api/v1/subscriptions", headers: headers
     end
   end
 end
