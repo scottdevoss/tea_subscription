@@ -1,24 +1,34 @@
-# README
+# Tea Subscriptions
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Summary
 
-Things you may want to cover:
+Create:
 
-* Ruby version
+An endpoint to subscribe a customer to a tea subscription
+An endpoint to cancel a customer’s tea subscription
+An endpoint to see all of a customer’s subsciptions (active and cancelled)
 
-* System dependencies
+## Setup Instructions
 
-* Configuration
+Clone this repository:
 
-* Database creation
+git clone git@github.com:scottdevoss/tea_subscription.git
 
-* Database initialization
+bundle install
 
-* How to run the test suite
+bundle exec rspec
 
-* Services (job queues, cache servers, search engines, etc.)
+rails s
 
-* Deployment instructions
+## Endpoints
 
-* ...
+POST /api/v1/subscriptions
+
+PATCH /api/v1/subscriptions/subscription_id
+
+GET /api/v1/subscriptions
+
+## Testing Instructions
+
+Run these enpoints in Postman. 
+
