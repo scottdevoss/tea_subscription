@@ -104,5 +104,30 @@ RSpec.describe "Tea Subscriptions", type: :request do
 
       expect(json[:data][:attributes][:status]).to eq("cancelled")
     end
+
+    #Sad Path updated subscription
+    it "gives an error if the customer tries to update something other than the status" do
+      customer = Customer.create!(first_name: "Jack", last_name: "Sparrow", email: "jack@pirate.com", address: "30 Black Pearl Street")
+      tea = Tea.create!(title: "Chai", description: "Sweet and Spicy", temperature: 150, brew_time: "10 minutes")
+      subscription = Subscription.create!(title: "Subscription", price: 10, status: 1, frequency: "weekly", tea_id: tea.id, customer_id: customer.id)
+    
+      headers = { "CONTENT_TYPE" => "application/json",
+        "ACCEPT" => "application/json"
+      }
+
+      sub_params = { price: 0 }
+      
+      patch "/api/v1/subscriptions/#{subscription.id}", headers: headers, params: sub_params.to_json
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(422)
+
+      expect(json).to have_key(:errors)
+      expect(json[:errors]).to be_a(Hash)
+      expect(json[:errors]).to have_key(:title)
+      expect(json[:errors]).to have_key(:status)
+      expect(json[:errors][:title]).to eq("Only status can be updated")
+    end
   end
 end
