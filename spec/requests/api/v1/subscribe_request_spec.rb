@@ -129,5 +129,26 @@ RSpec.describe "Tea Subscriptions", type: :request do
       expect(json[:errors]).to have_key(:status)
       expect(json[:errors][:title]).to eq("Only status can be updated")
     end
+
+
+    #GET /api/v1/subscriptions
+    it "shows all the customers subscriptions (active and canceled)" do
+      customer = Customer.create!(first_name: "Jack", last_name: "Sparrow", email: "jack@pirate.com", address: "30 Black Pearl Street")
+      tea = Tea.create!(title: "Chai", description: "Sweet and Spicy", temperature: 150, brew_time: "10 minutes")
+      tea2 = Tea.create!(title: "Hibiscus", description: "Fruity", temperature: 200, brew_time: "5 minutes")
+      subscription = Subscription.create!(title: "Subscription", price: 10, status: 1, frequency: "weekly", tea_id: tea.id, customer_id: customer.id)
+      subscription2 = Subscription.create!(title: "Subscription 2", price: 15, status: 0, frequency: "monthly", tea_id: tea2.id, customer_id: customer.id)
+
+      get "/api/v1/subscriptions"
+
+      expect(response.status).to eq(200)
+  
+      json = JSON.parse(response.body, symbolize_names: true) 
+
+      expect(json).to have_key(:data)
+      expect(json[:data]).to be_a(Array)
+      expect(json[:data][0][:attributes][:status]).to eq("active")
+      expect(json[:data][1][:attributes][:status]).to eq("cancelled")
+    end
   end
 end
