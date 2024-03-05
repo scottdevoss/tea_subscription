@@ -4,9 +4,9 @@
 
 Create:
 
-An endpoint to subscribe a customer to a tea subscription
-An endpoint to cancel a customer’s tea subscription
-An endpoint to see all of a customer’s subsciptions (active and cancelled)
+- An endpoint to subscribe a customer to a tea subscription
+- An endpoint to cancel a customer’s tea subscription
+- An endpoint to see all of a customer’s subsciptions (active and cancelled)
 
 ## Setup Instructions
 
