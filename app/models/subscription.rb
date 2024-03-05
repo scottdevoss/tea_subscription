@@ -1,6 +1,7 @@
 class Subscription < ApplicationRecord
   belongs_to :tea
   belongs_to :customer
+  enum status: {"cancelled": 0, "active": 1}
 
   validates_presence_of :title
   validates_presence_of :price

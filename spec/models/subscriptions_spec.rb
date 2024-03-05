@@ -13,5 +13,6 @@ describe Subscription, type: :model do
     it { should validate_presence_of(:frequency) }
     it { should validate_presence_of(:customer_id) }
     it { should validate_presence_of(:tea_id) }
+    it { should define_enum_for(:status).with_values(cancelled: 0, active: 1) }
   end
 end
