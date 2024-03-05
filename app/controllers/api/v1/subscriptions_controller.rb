@@ -4,7 +4,7 @@ class Api::V1::SubscriptionsController < ApplicationController
     if new_subscription.save
       render json: SubscriptionSerializer.new(new_subscription), status: :created
     else
-      render json: { errors: [title: 'Please fill in all fields', status: "400"]}, status: :bad_request
+      render json: { errors: {title: 'Please fill in all fields', status: "400"}}, status: :bad_request
     end
   end
 
