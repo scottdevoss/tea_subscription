@@ -8,9 +8,23 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def update
+    subscription = Subscription.find(params[:id])
+    if subscription
+      subscription.update(update_params)
+      render json: SubscriptionSerializer.new(subscription), status: :ok
+    else
+      render json: { errors: {title: 'Only status can be updated', status: "422"} }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def subscription_params
     params.require(:subscription).permit(:title, :price, :status, :frequency, :tea_id, :customer_id)
+  end
+
+  def update_params
+    params.require(:subscription).permit(:status)
   end
 end
