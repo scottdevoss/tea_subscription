@@ -16,13 +16,16 @@ RSpec.describe "Tea Subscriptions", type: :request do
         tea_id: tea.id,
         customer_id: customer.id
       }
-      # require 'pry'; binding.pry
-
+      
       headers = { "CONTENT_TYPE" => "application/json",
         "ACCEPT" => "application/json"
       }
-
+      
       post "/api/v1/subscriptions", headers: headers, params: subscription.to_json
+
+      expect(response.status).to eq(201)
+  
+      json = JSON.parse(response.body, symbolize_names: true) 
     end
   end
 end

@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_04_224902) do
   create_table "subscriptions", force: :cascade do |t|
     t.string "title"
     t.integer "price"
-    t.string "status"
+    t.integer "status"
     t.string "frequency"
     t.bigint "tea_id", null: false
     t.bigint "customer_id", null: false
