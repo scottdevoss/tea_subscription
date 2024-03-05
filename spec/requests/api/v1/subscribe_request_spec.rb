@@ -26,6 +26,18 @@ RSpec.describe "Tea Subscriptions", type: :request do
       expect(response.status).to eq(201)
   
       json = JSON.parse(response.body, symbolize_names: true) 
+      
+      expect(json).to have_key(:data)
+      expect(json[:data]).to have_key(:id)
+      expect(json[:data]).to have_key(:type)
+      expect(json[:data]).to have_key(:attributes)
+
+      expect(json[:data][:attributes]).to have_key(:title)
+      expect(json[:data][:attributes]).to have_key(:price)
+      expect(json[:data][:attributes]).to have_key(:status)
+      expect(json[:data][:attributes]).to have_key(:frequency)
+      expect(json[:data][:attributes]).to have_key(:tea_id)
+      expect(json[:data][:attributes]).to have_key(:customer_id)
     end
   end
 end
